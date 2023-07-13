@@ -10,7 +10,6 @@ Usage::
     from simple_token_bucket import SimpleTokenBucket
     from simple_token_bucket.backends.redis import RedisBackend
 
-    # Put this somewhere safe!
     third_party_api_rate_limit_bucket = SimpleTokenBucket(
         name="third_party_api",
         bucket_size=3,
@@ -21,10 +20,10 @@ Usage::
     third_party_api_rate_limit_bucket.try_get_token()
     third_party_api_rate_limit_bucket.try_get_token()
 
-    # a quarta chamada deve falhar com a exception NotEnoughTokens
+    # will raises NotEnoughTokens
     third_party_api_rate_limit_bucket.try_get_token()
 
-    # após 10s a chama volta a funcionar
+    # after 10 seconds everythin works again
     import time
     time.sleep(10)
     third_party_api_rate_limit_bucket.try_get_token()
