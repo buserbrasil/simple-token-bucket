@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+.coverage
+/.ruff_cache/
+/.pytest_cache/
+/_build/

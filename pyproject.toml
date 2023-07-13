@@ -1,0 +1,80 @@
+[project]
+name = "simple-token-bucket"
+dynamic = ["version"]
+authors = [
+  { name="Erle Carrara", email="carrara.erle@gmail.com" },
+]
+description = ""
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = []
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+redis = [
+  "redis"
+]
+
+[project.urls]
+Source = "https://github.com/buserbrasil/simple-token-bucket"
+Issues = "https://github.com/buserbrasil/simple-token-bucket/issues"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "simple_token_bucket/__init__.py"
+
+[tool.hatch.envs.test]
+dependencies = [
+  "pytest",
+  "pytest-cov",
+  "fakeredis",
+]
+
+[[tool.hatch.envs.test.matrix]]
+python = ["3.11", "3.10", "3.9", "3.8"]
+
+[tool.hatch.envs.test.scripts]
+cov = "pytest --cov=simple_token_bucket {args:tests}"
+
+[tool.hatch.envs.default]
+dependencies = [
+  "black>=23.3",
+  "pyright>=1.1",
+  "ruff>=0.0.274",
+  "pytest",
+  "sphinx",
+  "redis"
+]
+
+[tool.hatch.envs.default.scripts]
+typing = "pyright {args:simple_token_bucket tests}"
+style = [
+  "ruff {args:.}",
+  "black --check --diff {args:.}"
+]
+fmt = [
+  "black {args:.}",
+  "ruff --fix {args:.}",
+  "style"
+]
+doc = [
+  "sphinx-build -b html docs _build/html"
+]
+
+[tool.black]
+target-version = ["py38"]
+line-length = 120
+
+[tool.ruff]
+target-version = "py38"
+line-length = 120
+
+[tool.ruff.isort]
+known-first-party = ["simple_token_bucket"]
