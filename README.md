@@ -1,5 +1,9 @@
 # Simple Token Bucket
 
+[![Documentation](https://readthedocs.org/projects/simple-token-bucket/badge/)](https://simple-token-bucket.readthedocs.io/en/latest/)
+[![PyPI](https://img.shields.io/pypi/v/simple-token-bucket)](https://pypi.org/project/simple-token-bucket/)
+![GitHub](https://img.shields.io/github/license/buserbrasil/simple-token-bucket)
+
 A *simple* token bucket implementation.
 
 ## Project philosophy
