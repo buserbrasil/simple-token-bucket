@@ -33,6 +33,7 @@ third_party_api_rate_limit_bucket = SimpleTokenBucket(
     name="third_party_api",
     bucket_size=3,
     interval=10,
+    backend=RedisBackend.from_url("redis://localhost:6379/0")
 )
 
 third_party_api_rate_limit_bucket.try_get_token()
