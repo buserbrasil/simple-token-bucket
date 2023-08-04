@@ -20,4 +20,6 @@ class RedisBackend(Backend):
         pipeline.decr(bucket_name)
         _, ttl, available_tokens, _ = pipeline.execute()
 
+        if ttl < 0:
+            return int(bucket_size), refresh_interval
         return int(available_tokens), ttl
