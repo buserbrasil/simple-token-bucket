@@ -21,5 +21,7 @@ class RedisBackend(Backend):
         _, ttl, available_tokens, _ = pipeline.execute()
 
         if ttl < 0:
+            # some keys can be created by the decr command, those keys do not have a TTL
+            self._client.expire(bucket_name, refresh_interval)
             return int(bucket_size), refresh_interval
         return int(available_tokens), ttl
