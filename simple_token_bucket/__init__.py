@@ -1,11 +1,20 @@
 __version__ = "0.1.2"
 
 
+from typing import Callable
+
 from .backends import Backend
 
 
 class SimpleTokenBucket:
-    def __init__(self, name: str, bucket_size: int, refresh_interval: int, backend: Backend):
+    def __init__(
+        self,
+        name: str,
+        bucket_size: int,
+        refresh_interval: int,
+        backend: Backend,
+        listener: Callable[[int], None] | None = None,
+    ):
         """Create a new SimpleTokenBucket.
 
         Every `refresh_interval` the token bucket is refresh and `bucket_size`
@@ -21,6 +30,7 @@ class SimpleTokenBucket:
         self.bucket_size = bucket_size
         self.refresh_interval = refresh_interval
         self._backend = backend
+        self._listener_callback = listener
 
     def try_get_token(self, raises=True) -> bool:
         available_tokens, ttl = self._backend.get_token(
@@ -28,6 +38,9 @@ class SimpleTokenBucket:
             bucket_size=self.bucket_size,
             refresh_interval=self.refresh_interval,
         )
+
+        if self._listener_callback is not None:
+            self._listener_callback(available_tokens)
 
         if available_tokens <= 0:
             if raises:
