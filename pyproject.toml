@@ -34,7 +34,7 @@ path = "simple_token_bucket/__init__.py"
 dependencies = [
   "pytest",
   "pytest-cov",
-  "fakeredis",
+  "fakeredis<=2.21.3",
 ]
 
 [[tool.hatch.envs.test.matrix]]
