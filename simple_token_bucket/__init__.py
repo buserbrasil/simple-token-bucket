@@ -1,7 +1,7 @@
 __version__ = "0.1.2"
 
 
-from typing import Callable
+from typing import Callable, Optional
 
 from .backends import Backend
 
@@ -13,7 +13,7 @@ class SimpleTokenBucket:
         bucket_size: int,
         refresh_interval: int,
         backend: Backend,
-        listener: Callable[[int], None] | None = None,
+        listener: Optional[Callable[[int], None]] = None,
     ):
         """Create a new SimpleTokenBucket.
 
